@@ -13,7 +13,7 @@
     "test:watch": "cross-env NODE_ENV=test USE_MOCK_DB=true jest --watch"
   },
   "dependencies": {
-    "bcrypt": "^5.1.0",
+    "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
@@ -33,7 +33,13 @@
   "jest": {
     "testEnvironment": "node",
     "testTimeout": 15000,
-    "setupFilesAfterEnv": ["<rootDir>/__tests__/jest.setup.js"],
-    "testPathIgnorePatterns": ["/node_modules/", "__tests__/jest.setup.js", "__tests__/setupDb.js"]
+    "setupFilesAfterEnv": [
+      "<rootDir>/__tests__/jest.setup.js"
+    ],
+    "testPathIgnorePatterns": [
+      "/node_modules/",
+      "__tests__/jest.setup.js",
+      "__tests__/setupDb.js"
+    ]
   }
 }

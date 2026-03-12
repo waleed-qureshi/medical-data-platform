@@ -1,0 +1,14 @@
+FROM node:20-alpine
+
+WORKDIR /usr/src/app
+
+COPY backend/package*.json ./
+RUN npm ci
+
+COPY backend/ ./
+
+RUN mkdir -p ${UPLOAD_DIR:-/usr/src/app/uploads}
+
+EXPOSE 5000
+
+CMD ["npm", "run", "dev"]

@@ -1,0 +1,48 @@
+-- Medical Data Platform schema
+
+CREATE DATABASE IF NOT EXISTS medical_data_platform;
+USE medical_data_platform;
+
+-- Users
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL UNIQUE,
+  password_hash VARCHAR(255) NOT NULL,
+  role VARCHAR(50) NOT NULL DEFAULT 'user',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+
+-- Patients
+CREATE TABLE IF NOT EXISTS patients (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  age INT NULL,
+  gender VARCHAR(50) NULL,
+  diagnosis TEXT NULL,
+  created_by INT NOT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (created_by) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Medical Records
+CREATE TABLE IF NOT EXISTS records (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  patient_id INT NOT NULL,
+  blood_pressure DOUBLE NULL,
+  cholesterol DOUBLE NULL,
+  glucose DOUBLE NULL,
+  notes TEXT NULL,
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (patient_id) REFERENCES patients(id) ON DELETE CASCADE
+);
+
+-- Dataset uploads
+CREATE TABLE IF NOT EXISTS datasets (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  file_path VARCHAR(1024) NOT NULL,
+  uploaded_by INT NOT NULL,
+  status VARCHAR(50) NOT NULL DEFAULT 'uploaded',
+  created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (uploaded_by) REFERENCES users(id) ON DELETE SET NULL
+);
